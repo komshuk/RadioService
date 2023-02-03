@@ -3,10 +3,22 @@ package ru.netology;
 public class Radio {
     private int station;
     private int soundVolume;
+    private int numberStations = 10;
+    private int scaleVolume = 100;
+
+    public Radio(int numberStations) {
+        this.numberStations = numberStations;
+    }
+    public Radio() {
+        this.numberStations = 10;
+    }
 
     public int getStation() {
-
         return station;
+    }
+
+    public int getNumberStation() {
+        return numberStations;
     }
 
     public void setStation(int station) {
@@ -39,18 +51,22 @@ public class Radio {
         return soundVolume;
     }
 
+    public int getScaleVolume() {
+        return scaleVolume;
+    }
+
     public void setSoundVolume(int soundVolume) {
         if (soundVolume < 0) {
             return;
         }
-        if (soundVolume > 10) {
-            soundVolume = 10;
+        if (soundVolume > 99) {
+            soundVolume = 99;
         }
         this.soundVolume = soundVolume;
     }
 
     public void increaseSoundVolume() {
-        if (soundVolume < 10) {
+        if (soundVolume < 99) {
             soundVolume++;
         }
     }
