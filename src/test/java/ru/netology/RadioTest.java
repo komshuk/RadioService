@@ -1,10 +1,26 @@
 package ru.netology;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class RadioTest {
+
+    @Test
+    public void numberRadioStation() {
+        Radio road = new Radio();
+
+        Assertions.assertEquals(10, road.getNumberStation());
+    }
+
+    @Test
+    public void numberRadioStation2() {
+        Radio road = new Radio(10);
+
+        Assertions.assertEquals(10, road.getNumberStation());
+    }
+
     @Test
     void nextRadioStation() {
         Radio road = new Radio();
@@ -33,7 +49,7 @@ class RadioTest {
     void nextRadioStation3() {
         Radio road = new Radio();
 
-        road.setStation(-1);
+        road.setStation(0);
         road.nextStation();
         int actual = road.getStation();
         int expected = 1;
@@ -122,11 +138,11 @@ class RadioTest {
     void increaseVolume2() {
         Radio road = new Radio();
 
-        road.setSoundVolume(23);
+        road.setSoundVolume(123);
         road.increaseSoundVolume();
 
         int actual = road.getSoundVolume();
-        int expected = 10;
+        int expected = 99;
 
         assertEquals(actual, expected);
     }
