@@ -5,155 +5,139 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RadioTest {
+    Radio road = new Radio();
+
     @Test
-    void nextRadioStation() {
-        Radio road = new Radio();
+    public void addMaxMinStation() {
+        Radio road = new Radio(5);
+        assertEquals(4, road.getMaxStation());
 
-        road.setStation(2);
-        road.nextStation();
-        int actual = road.getStation();
-        int expected = 3;
+        Radio road2 = new Radio(50);
+        assertEquals(49, road2.getMaxStation());
 
-        assertEquals(actual, expected);
+        Radio road3 = new Radio(10);
+        assertEquals(0, road3.getMinStation());
     }
 
     @Test
-    void nextRadioStation2() {
-        Radio road = new Radio();
-
-        road.setStation(9);
-        road.nextStation();
-        int actual = road.getStation();
-        int expected = 0;
-
-        assertEquals(actual, expected);
+    public void currentStation() {
+        road.setCurrentStation(0);
+        road.setCurrentStation(-1);
+        road.setCurrentStation(11);
+        assertEquals(0, road.getCurrentStation());
     }
 
     @Test
-    void nextRadioStation3() {
-        Radio road = new Radio();
+    public void addNextStation() {
+        road.setCurrentStation(0);
+        road.addNextStation();
+        assertEquals(1, road.getCurrentStation());
 
-        road.setStation(-1);
-        road.nextStation();
-        int actual = road.getStation();
-        int expected = 1;
+        road.setCurrentStation(10);
+        road.addNextStation();
+        assertEquals(0, road.getCurrentStation());
 
-        assertEquals(actual, expected);
+        road.setCurrentStation(-1);
+        road.addNextStation();
+        assertEquals(0, road.getCurrentStation());
+
+        road.setCurrentStation(11);
+        road.addNextStation();
+        assertEquals(1, road.getCurrentStation());
     }
 
     @Test
-    void nextRadioStation4() {
-        Radio road = new Radio();
+    public void addPrevStation() {
+        road.setCurrentStation(0);
+        road.addPrevStation();
+        assertEquals(10, road.getCurrentStation());
 
-        road.setStation(22);
-        road.nextStation();
-        int actual = road.getStation();
-        int expected = 1;
-
-        assertEquals(actual, expected);
+        road.setCurrentStation(10);
+        road.addPrevStation();
+        assertEquals(9, road.getCurrentStation());
     }
 
     @Test
-    void prevRadioStation() {
-        Radio road = new Radio();
-
-        road.setStation(9);
-        road.prevStation();
-
-        int actual = road.getStation();
-        int expected = 8;
-
-        assertEquals(actual, expected);
+    public void maxStation() {
+        assertEquals(10, road.getMaxStation());
     }
 
     @Test
-    void prevRadioStation2() {
-        Radio road = new Radio();
-
-        road.setStation(33);
-        road.prevStation();
-
-        int actual = road.getStation();
-        int expected = 9;
-
-        assertEquals(actual, expected);
+    public void addMaxStation() {
+        road.setMaxStation(-1);
+        road.setMaxStation(0);
+        road.setMaxStation(11);
+        assertEquals(11, road.getMaxStation());
     }
 
     @Test
-    void prevRadioStation3() {
-        Radio road = new Radio();
-
-        road.setStation(-1);
-        road.prevStation();
-
-        int actual = road.getStation();
-        int expected = 9;
-
-        assertEquals(actual, expected);
+    public void minStation() {
+        assertEquals(0, road.getMinStation());
     }
 
     @Test
-    void prevRadioStation4() {
-        Radio road = new Radio();
-
-        road.setStation(10);
-        road.prevStation();
-
-        int actual = road.getStation();
-        int expected = 9;
-
-        assertEquals(actual, expected);
+    public void addMinStation() {
+        road.setMinStation(-1);
+        road.setMinStation(0);
+        road.setMinStation(11);
+        assertEquals(11, road.getMinStation());
     }
 
     @Test
-    void increaseVolume() {
-        Radio road = new Radio();
+    public void currentVolume() {
+        road.setCurrentVolume(101);
+        assertEquals(0, road.getCurrentVolume());
 
-        road.setSoundVolume(3);
-        road.increaseSoundVolume();
+        road.setCurrentVolume(-1);
+        assertEquals(100, road.getCurrentVolume());
 
-        int actual = road.getSoundVolume();
-        int expected = 4;
-
-        assertEquals(actual, expected);
+        road.setCurrentVolume(3);
+        assertEquals(3, road.getCurrentVolume());
     }
 
     @Test
-    void increaseVolume2() {
-        Radio road = new Radio();
-
-        road.setSoundVolume(23);
-        road.increaseSoundVolume();
-
-        int actual = road.getSoundVolume();
-        int expected = 10;
-
-        assertEquals(actual, expected);
+    public void minVolume() {
+        assertEquals(0, road.getMinVolume());
     }
 
     @Test
-    void reduceVolume() {
-        Radio road = new Radio();
-
-        road.setSoundVolume(8);
-        road.reduceSoundVolume();
-        int actual = road.getSoundVolume();
-        int expected = 7;
-
-        assertEquals(actual, expected);
+    public void maxVolume() {
+        assertEquals(100, road.getMaxVolume());
     }
 
     @Test
-    void reduceVolume2() {
-        Radio radio = new Radio();
-
-        radio.setSoundVolume(-3);
-        radio.reduceSoundVolume();
-
-        int actual = radio.getSoundVolume();
-        int expected = 0;
-
-        assertEquals(actual, expected);
+    public void addMinVolume() {
+        road.setMaxVolume(100);
+        road.setMinVolume(1);
+        assertEquals(1, road.getMinVolume());
     }
 
+    @Test
+    public void addMaxVolume() {
+        road.setMinVolume(0);
+        road.setMaxVolume(100);
+        assertEquals(100, road.getMaxVolume());
+    }
+
+    @Test
+    public void addVolumeUp() {
+        road.setCurrentVolume(3);
+        road.addVolumeUp();
+        assertEquals(4, road.getCurrentVolume());
+
+        road.setCurrentVolume(100);
+        road.addVolumeUp();
+        assertEquals(0, road.getCurrentVolume());
+    }
+
+    @Test
+    public void addVolumeDown() {
+        road.setCurrentVolume(6);
+        road.addVolumeDown();
+        assertEquals(5, road.getCurrentVolume());
+
+        road.setCurrentVolume(0);
+        road.addVolumeDown();
+        assertEquals(100, road.getCurrentVolume());
+    }
 }
